@@ -1,0 +1,26 @@
+<configuration>
+
+    <!-- Console appender -->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <!-- Pattern: timestamp level logger - message -->
+            <pattern>%d{HH:mm:ss.SSS} [%level] [%thread] %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- Set root logger level -->
+    <root level="WARN">
+        <appender-ref ref="CONSOLE" />
+    </root>
+
+    <!-- Spring framework logs -->
+    <logger name="org.springframework" level="ERROR" />
+
+    <!-- Hibernate / JPA logs -->
+    <logger name="org.hibernate" level="WARN" />
+
+    <!-- Test warnings like 'unchecked' can be suppressed here -->
+    <logger name="org.junit" level="ERROR" />
+    <logger name="org.mockito" level="ERROR" />
+
+</configuration>
