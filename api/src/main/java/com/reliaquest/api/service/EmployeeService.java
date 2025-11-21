@@ -34,7 +34,7 @@ public class EmployeeService {
             .filter(ex -> ex instanceof WebClientResponseException.TooManyRequests);
 
     /** Fetch all employees, return empty list if none */
-    @Cacheable("employees")
+    @Cacheable(cacheNames = "employeesAll", sync = true)
     public List<Employee> getAll() {
         return employeeClient
                 .get()
@@ -95,7 +95,7 @@ public class EmployeeService {
     }
 
     /** Create a new employee */
-    @CacheEvict(value = "employees", allEntries = true)
+    @CacheEvict(value = "employeesAll", allEntries = true)
     public Employee create(CreateEmployeeDTO input) {
         return employeeClient
                 .post()
@@ -109,7 +109,7 @@ public class EmployeeService {
     }
 
     /** Delete employee by ID */
-    @CacheEvict(value = "employees", allEntries = true)
+    @CacheEvict(value = "employeesAll", allEntries = true)
     public boolean delete(String id) throws JsonProcessingException {
         Employee existingEmployee = getById(id);
         if (existingEmployee == null) {
